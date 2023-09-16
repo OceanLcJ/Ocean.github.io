@@ -3820,6 +3820,9 @@ h1.page-title + .tag-cloud-list {
 #loading-box .loading-right-bg {
   right: 0;
 }
+#loading-box .carplay {
+  display: none;
+}
 #loading-box .spinner-box {
   position: fixed;
   z-index: 1001;

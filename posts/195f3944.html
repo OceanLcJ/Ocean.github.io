@@ -1,5 +1,6 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><title>线程的学习(一) | 菠萝屋</title><meta name="keywords" content="JAVA,Thread"><meta name="author" content="Ocean"><meta name="copyright" content="Ocean"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f7f9fe"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-touch-fullscreen" content="yes"><meta name="apple-mobile-web-app-title" content="线程的学习(一)"><meta name="application-name" content="线程的学习(一)"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="#f7f9fe"><meta property="og:type" content="article"><meta property="og:title" content="线程的学习(一)"><meta property="og:url" content="https://oceanlcj.github.io/posts/195f3944.html"><meta property="og:site_name" content="菠萝屋"><meta property="og:description" content="带着问题去理解 什么是线程? 线程的生命周期以及状态时如何？ 线程的基础使用方式？ 线程的中断方式？ 线程的互斥同步方式有哪些？如何比较和选择？ 线程之间有哪些协作方式？"><meta property="og:locale" content="zh-CN"><meta property="og:image" content="https://oceanlcj.github.io/img/default_cover2.jpg"><meta property="article:author" content="Ocean"><meta property="article:tag"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://oceanlcj.github.io/img/default_cover2.jpg"><meta name="description" content="带着问题去理解 什么是线程? 线程的生命周期以及状态时如何？ 线程的基础使用方式？ 线程的中断方式？ 线程的互斥同步方式有哪些？如何比较和选择？ 线程之间有哪些协作方式？"><link rel="shortcut icon" href="/favicon.ico"><link rel="canonical" href="https://oceanlcj.github.io/posts/195f3944"><link rel="preconnect" href="//npm.elemecdn.com"/><link rel="preconnect" href="//npm.onmicrosoft.cn"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="xxx"/><meta name="baidu-site-verification" content="code-xxx"/><meta name="msvalidate.01" content="xxx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.cbd.int/@fancyapps/ui@5.0.20/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><title>线程的学习(一) | 菠萝屋</title><meta name="keywords" content="JAVA,Thread"><meta name="author" content="Ocean"><meta name="copyright" content="Ocean"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f7f9fe"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-touch-fullscreen" content="yes"><meta name="apple-mobile-web-app-title" content="线程的学习(一)"><meta name="application-name" content="线程的学习(一)"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="#f7f9fe"><meta property="og:type" content="article"><meta property="og:title" content="线程的学习(一)"><meta property="og:url" content="https://oceanlcj.github.io/posts/195f3944.html"><meta property="og:site_name" content="菠萝屋"><meta property="og:description" content="带着问题去理解 什么是线程? 线程的生命周期以及状态时如何？ 线程的基础使用方式？ 线程的中断方式？ 线程的互斥同步方式有哪些？如何比较和选择？ 线程之间有哪些协作方式？"><meta property="og:locale" content="zh-CN"><meta property="og:image" content="https://oceanlcj.github.io/img/default_cover2.jpg"><meta property="article:author" content="Ocean"><meta property="article:tag"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://oceanlcj.github.io/img/default_cover2.jpg"><meta name="description" content="带着问题去理解 什么是线程? 线程的生命周期以及状态时如何？ 线程的基础使用方式？ 线程的中断方式？ 线程的互斥同步方式有哪些？如何比较和选择？ 线程之间有哪些协作方式？"><link rel="shortcut icon" href="/favicon.ico"><link rel="canonical" href="https://oceanlcj.github.io/posts/195f3944"><link rel="preconnect" href="//cdn.cbd.int"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="xxx"/><meta name="baidu-site-verification" content="code-xxx"/><meta name="msvalidate.01" content="xxx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.cbd.int/@fancyapps/ui@5.0.20/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
   linkPageTop: undefined,
+  peoplecanvas: {"enable":true,"img":"https://upload-bbs.miyoushe.com/upload/2023/09/03/125766904/ee23df8517f3c3e3efc4145658269c06_5714860933110284659.png"},
   postHeadAiDescription: undefined,
   diytitle: {"enable":true,"leaveTitle":"w(ﾟДﾟ)w 不要走！再看看嘛！","backTitle":"♪(^∇^*)欢迎肥来！"},
   LA51: undefined,
@@ -37,7 +38,7 @@
   },
   copyright: {"copy":true,"copyrightEbable":true,"limitCount":50,"languages":{"author":"作者: Ocean","link":"链接: ","source":"来源: 菠萝屋","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。","copySuccess":"复制成功，复制和转载请标注本文地址"}},
   lightbox: 'fancybox',
-  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#3b70fc","bgDark":"#1f1f1f","position":"top-center"},
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#425AEF","bgDark":"#1f1f1f","position":"top-center"},
   source: {
     justifiedGallery: {
       js: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.min.js',
@@ -279,7 +280,7 @@ queueMicrotask(() => {
     "已上线",
     dnum,
     "天",
-    "©2020 By 安知鱼 V1.6.5",
+    "©2020 By 安知鱼 V1.6.8",
   ];
   const ascll2 = [`NCC2-036`, `调用前置摄像头拍照成功，识别为【小笨蛋】.`, `Photo captured: `, `🤪`];
 
@@ -287,12 +288,12 @@ queueMicrotask(() => {
     Log.bind(
       console,
       `\n%c${ascll[0]} %c ${ascll[1]} %c ${ascll[2]} %c${ascll[3]}%c ${ascll[4]}%c ${ascll[5]}\n\n%c ${ascll[6]}\n`,
-      "color:#3b70fc",
+      "color:#425AEF",
       "",
-      "color:#3b70fc",
-      "color:#3b70fc",
+      "color:#425AEF",
+      "color:#425AEF",
       "",
-      "color:#3b70fc",
+      "color:#425AEF",
       ""
     )
   );
@@ -368,7 +369,6 @@ document.addEventListener('pjax:complete', function () {
 
   GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
 
-  typeof chatBtnFn === 'function' && chatBtnFn()
   typeof panguInit === 'function' && panguInit()
 
   // google analytics

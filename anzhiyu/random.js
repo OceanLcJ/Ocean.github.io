@@ -1,4 +1,4 @@
-var posts=["posts/cf14bbb5.html","posts/243f166a.html","posts/662752a1.html","posts/195f3944.html"];function toRandomPost(){pjax.loadUrl('/'+posts[Math.floor(Math.random() * posts.length)]);};var friend_link_list=[];
+var posts=["posts/243f166a.html","posts/662752a1.html","posts/195f3944.html","posts/cf14bbb5.html"];function toRandomPost(){pjax.loadUrl('/'+posts[Math.floor(Math.random() * posts.length)]);};var friend_link_list=[];
     var refreshNum = 1;
     function friendChainRandomTransmission() {
       const randomIndex = Math.floor(Math.random() * friend_link_list.length);
